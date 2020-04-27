@@ -10,6 +10,7 @@ export const showCartDlg = status => ({
   type: CONSTANTS.SHOW_CART_DLG,
   payload: status
 });
+//remove a cart item.
 export const deleteCartItem = id => ({
   type: CONSTANTS.DELETE_CART_ITEM,
   payload: id
