@@ -3,12 +3,7 @@ import { sampleProducts } from "./Data";
 //axios
 import axios from 'axios';
 
-import { useAlert } from "react-alert";
 
-///
-//
-// Methods of this class are used to simulate calls to server.
-//
 class Api {
 
   //add a product rating by user
