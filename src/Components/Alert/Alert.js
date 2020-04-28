@@ -60,6 +60,7 @@ class ConnectedAlert extends Component {
               disabled={totalPrice === 0}
               onClick={() => {
                 this.props.dispatch(showAlertDialog(false));
+                this.props.history.push("/");
               }}
             >
               OK
