@@ -92,13 +92,10 @@ const rootReducer = (state = initialState, action) => {
     //Remove error occured on API requst to create category -- (09)
     case CONSTANTS.REMOVE_CREATE_CATEGORY_ERROR:
       return { ...state, createCategoryError: null};
-<<<<<<< Updated upstream
     case CONSTANTS.REMOVE_CHECKEDOUT_ITEMS:
       return { ...state, checkedOutItems: []}
-=======
     case CONSTANTS.CATEGORIES_FETCHED:
       return { ...state, categories: action.payload}
->>>>>>> Stashed changes
     default:
       return state;
   }

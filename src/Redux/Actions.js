@@ -42,11 +42,9 @@ export const setCreateCategoryError = (error) => ({
 export const removeCreateCategoryError = () => ({
   type: CONSTANTS.REMOVE_CREATE_CATEGORY_ERROR
 });
-<<<<<<< Updated upstream
 export const removeCheckoutItems = () => ({
   type: CONSTANTS.REMOVE_CHECKEDOUT_ITEMS
 });
-=======
 export const fetchCategories = () => {
   return (dispatch) => {
     axios.get(
@@ -62,4 +60,3 @@ export const fetchCategories = () => {
       });
   }
 }
->>>>>>> Stashed changes

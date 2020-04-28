@@ -7,8 +7,17 @@ import Select from "@material-ui/core/Select";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { withRouter } from "react-router-dom";
+//
+import { connect } from "react-redux";
 
-class ProductsHeader extends Component {
+//Get the state from redux store.
+const mapStateToProps = state => {
+  return {
+    categories: state.categories
+  };
+};
+
+class ConnectedProductsHeader extends Component {
   state = {
     openPriceDialog: false
   };
@@ -22,8 +31,22 @@ class ProductsHeader extends Component {
     let maxPrice = parsedQS.maxPrice || 1000;
     let sortValue = parsedQS.sortValue || "lh";
     let keyword = parsedQS.term;
-    let category = parsedQS.category;
+    let categoryId = parsedQS.category;
 
+    /*
+    this.props.categories.map(
+      category => {
+        console.log('categories @ ProductHeader')
+        console.log(category.categoryId);
+        console.log(categoryIdFromLink);
+        if (category.categoryId == categoryIdFromLink) {
+          this.setState({
+            categoryName: category.categoryName
+          })
+        }
+      }
+    )
+      */
     let subtitle = (
       <React.Fragment>
         <span style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
@@ -51,7 +74,7 @@ class ProductsHeader extends Component {
       <div>
         <div style={{ padding: 10, display: "flex", alignItems: "center", }}>
           <div style={{ flex: 1, fontSize: 24 }}>
-            <div>{category ? category : "Popular Products"}</div>
+            <div>{categoryId ? '' : "Popular Products"}</div>
             {subtitle}
           </div>
           <div
@@ -119,5 +142,5 @@ class ProductsHeader extends Component {
     );
   }
 }
-
-export default withRouter(ProductsHeader);
+let ProductsHeader = withRouter(connect(mapStateToProps)(ConnectedProductsHeader));
+export default ProductsHeader;

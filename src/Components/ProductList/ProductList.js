@@ -117,8 +117,8 @@ class ProductList extends Component {
           console.log('categoryId @ ProductList BY the LINK'),
           console.log(parsedQS.category),
           this.state.items.map(item => {
-            console.log('product category of every item')
-            console.log(item.prodCategory.categoryId)
+            //console.log('product category of every item')
+            //console.log(item.prodCategory.categoryId)
             if (item.prodCategory.categoryId == parsedQS.category) {
               return <Item key={item._id} item={item} />;
             } 
