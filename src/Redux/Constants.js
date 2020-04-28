@@ -10,6 +10,11 @@ export const LOGOUT = "LOGOUT";
 export const SET_CREATE_CATEGORY_ERROR = "SET_CREATE_CATEGORY_ERROR";
 export const REMOVE_CREATE_CATEGORY_ERROR = "REMOVE_CREATE_CATEGORY_ERROR";
 
+//show the Alert Dialog
+export const SHOW_ALERT_DIALOG = "SHOW_ALERT_DIALOG";
 
 //categories
 export const CATEGORIES_FETCHED = "CATEGORIES_FETCHED";
+
+//Place orders
+export const PLACE_ORDER = "PLACE_ORDER";

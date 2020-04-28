@@ -5,6 +5,7 @@ import { categories } from "../Data";
 const initialState = {
   cartItems: [],
   showCartDialog: false,
+  showAlertDialog: false,
   showMenu: true,
   checkedOutItems: [],
   loggedInUser: null,
@@ -32,7 +33,7 @@ const rootReducer = (state = initialState, action) => {
       }
       */
       let index = state.cartItems.findIndex(x => x.prod_id === action.payload.prod_id);
-      if (index !== -1 ) {
+      if (index !== -1) {
         let cloneCartItems = [...state.cartItems];
         cloneCartItems[index] = {
           ...cloneCartItems[index],
@@ -91,11 +92,14 @@ const rootReducer = (state = initialState, action) => {
     }
     //Remove error occured on API requst to create category -- (09)
     case CONSTANTS.REMOVE_CREATE_CATEGORY_ERROR:
-      return { ...state, createCategoryError: null};
+      return { ...state, createCategoryError: null };
     case CONSTANTS.REMOVE_CHECKEDOUT_ITEMS:
-      return { ...state, checkedOutItems: []}
+      return { ...state, checkedOutItems: [] }
     case CONSTANTS.CATEGORIES_FETCHED:
-      return { ...state, categories: action.payload}
+      return { ...state, categories: action.payload }
+    //Show CartDialog -- ()
+    case CONSTANTS.SHOW_ALERT_DIALOG:
+      return { ...state, showAlertDialog: action.payload };
     default:
       return state;
   }

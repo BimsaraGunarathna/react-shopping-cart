@@ -14,6 +14,7 @@ import Footer from "./Components/Footer/Footer";
 
 //custom
 import Wishlist from "./Components/Wishlist/Wishlist";
+import Alert from "./Components/Alert/Alert";
 import Profile from "./Components/Profile/Profile";
 import { fetchCategories } from "./Redux/Actions";
 import { connect } from "react-redux";
@@ -33,6 +34,8 @@ class ConnectedApp extends Component {
           <Menu />
           <div className="content">
             <CartDialog />
+            <Alert />
+
             <Switch>
               <Route path="/" exact component={ProductList} />
               <Route path="/details/:id" component={Details} />

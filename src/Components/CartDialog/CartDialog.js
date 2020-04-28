@@ -7,7 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { connect } from "react-redux";
-import { showCartDlg, setCheckedOutItems, removeCheckoutItems } from "../../Redux/Actions";
+import { showAlertDialog, showCartDlg, setCheckedOutItems, removeCheckoutItems } from "../../Redux/Actions";
 import { withRouter } from "react-router-dom";
 import CartRow from "./CartRow";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCartOutlined";
@@ -83,6 +83,7 @@ class ConnectedCartDialog extends Component {
                 this.props.dispatch(showCartDlg(false));
                 this.props.dispatch(setCheckedOutItems(this.props.items));
                 this.props.dispatch(removeCheckoutItems())
+                this.props.dispatch(showAlertDialog(true))
                 //this.props.history.push("/order");
               }}
             >
