@@ -1,5 +1,7 @@
 import * as CONSTANTS from "./Constants";
 
+import axios from 'axios';
+
 //Add an item to the CartDialog.
 export const addItemInCart = item => ({
   type: CONSTANTS.ADD_ITEM_IN_CART,
@@ -40,6 +42,24 @@ export const setCreateCategoryError = (error) => ({
 export const removeCreateCategoryError = () => ({
   type: CONSTANTS.REMOVE_CREATE_CATEGORY_ERROR
 });
+<<<<<<< Updated upstream
 export const removeCheckoutItems = () => ({
   type: CONSTANTS.REMOVE_CHECKEDOUT_ITEMS
 });
+=======
+export const fetchCategories = () => {
+  return (dispatch) => {
+    axios.get(
+      'https://giga-fashion.herokuapp.com/open/getcategories'
+    )
+      .then((response) => {
+        console.log('Success : fetchCategories');
+        console.log(response.data);
+        dispatch({ type: CONSTANTS.CATEGORIES_FETCHED, payload: response.data });
+      }, (err) => {
+        console.log('Error : occurred at fetching Categories');
+        console.log(err);
+      });
+  }
+}
+>>>>>>> Stashed changes

@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import queryString from "query-string";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { dataForTheMenu } from "../../Data";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Icon from "@material-ui/core/Icon";
@@ -13,11 +12,19 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 
+import axios from 'axios';
+import { fetchCategories } from "../../Redux/Actions";
+
+
+//Get the state from redux store.
 const mapStateToProps = state => {
   return {
     showMenu: state.showMenu,
+    categories: state.categories,
   };
 };
+
+
 
 class ConnectedMenu extends Component {
   constructor(props) {
@@ -28,15 +35,19 @@ class ConnectedMenu extends Component {
       expandedMenuItems: {
         1: true
       },
-      dataForTheMenu
+      
     };
 
+    this.props.dispatch(fetchCategories());
+
     this.renderMenu = this.renderMenu.bind(this)
+    //this.fetchCategories();
   }
 
   // This method determines from URL whether to highlight a menu item or not
   isMenuItemActive(item, location) {
-
+    console.log('Menu DATA from redux');
+    console.log(this.props.categories);
     if (location.pathname === "/" && location.search) {
       let queryStringParsed = queryString.parse(
         location.search
@@ -49,6 +60,25 @@ class ConnectedMenu extends Component {
 
     return item.url === location.pathname;
   }
+
+  // Data for rendering menu.
+  dataForTheMenu = [
+    { name: "Home page", url: "/", icon: "home", id: 0 },
+    {
+      name: "Product categories",
+      id: 1,
+      children: this.props.categories.map((x, i) => {
+        return {
+          name: x.categoryName,
+          id: 2 + i,
+          url: "/?category=" + x.categoryId,
+          icon: "watch"
+          //icon: x.icon
+        };
+      })
+    },
+
+  ];
 
   renderMenu(data) {
 
@@ -121,12 +151,10 @@ class ConnectedMenu extends Component {
     return (
       <div style={{
         backgroundColor: "#FAFAFB",
-        minWidth: 250,
-        paddingLeft: 25,
-        display: "none",
+        minWidth: 250
       }}>
         {/* Render our menu */}
-        {this.renderMenu(this.state.dataForTheMenu)}
+        {this.renderMenu(this.dataForTheMenu)}
       </div>
     );
   }

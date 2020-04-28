@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Header from "./Components/Header/Header.js";
 import ProductList from "./Components/ProductList/ProductList";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import Menu from "./Components/Menu/Menu";
 import CartDialog from "./Components/CartDialog/CartDialog";
 import Details from "./Components/Details/Details";
@@ -15,9 +15,16 @@ import Footer from "./Components/Footer/Footer";
 //custom
 import Wishlist from "./Components/Wishlist/Wishlist";
 import Profile from "./Components/Profile/Profile";
+import { fetchCategories } from "./Redux/Actions";
+import { connect } from "react-redux";
 
+class ConnectedApp extends Component {
+  constructor(props) {
+    super(props);
 
-class App extends Component {
+    this.props.dispatch(fetchCategories());
+  }
+
   render() {
     return (
       <div className="app">
@@ -47,5 +54,7 @@ class App extends Component {
     );
   }
 }
+
+const App = withRouter(connect()(ConnectedApp));
 
 export default App;

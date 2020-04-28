@@ -1,4 +1,5 @@
 import * as CONSTANTS from "./Constants";
+import { categories } from "../Data";
 
 // If multiple components need access to some data, in that case we store such data in redux.
 const initialState = {
@@ -7,7 +8,8 @@ const initialState = {
   showMenu: true,
   checkedOutItems: [],
   loggedInUser: null,
-  createCategoryError: null
+  createCategoryError: null,
+  categories: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -90,8 +92,13 @@ const rootReducer = (state = initialState, action) => {
     //Remove error occured on API requst to create category -- (09)
     case CONSTANTS.REMOVE_CREATE_CATEGORY_ERROR:
       return { ...state, createCategoryError: null};
+<<<<<<< Updated upstream
     case CONSTANTS.REMOVE_CHECKEDOUT_ITEMS:
       return { ...state, checkedOutItems: []}
+=======
+    case CONSTANTS.CATEGORIES_FETCHED:
+      return { ...state, categories: action.payload}
+>>>>>>> Stashed changes
     default:
       return state;
   }

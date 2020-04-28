@@ -15,13 +15,15 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
 
+    this.updateQueryString = this.updateQueryString.bind(this);
+    let parsedQS = queryString.parse(this.props.location.search);
+
     this.state = {
       loading: false,
       totalItemsCount: null,
       items: []
     };
-    this.updateQueryString = this.updateQueryString.bind(this);
-
+    
   }
 
   async fetchProducts() {
@@ -41,26 +43,26 @@ class ProductList extends Component {
         console.log('Error occurred at product fetching');
         console.log(err);
       });
-      
+
   }
-/*
-  async fetchData() {
-
-    this.setState({ loading: true });
-
-    // Parse the query string
-    let qsAsObject = queryString.parse(this.props.location.search);
-
-    let results = await Api.searchItems(qsAsObject);
-    console.log("RESULT DATA")
-    console.log(results.data);
-    this.setState({
-      items: results.data,
-      loading: false,
-      totalItemsCount: results.totalLength
-    });
-  }
-*/
+  /*
+    async fetchData() {
+  
+      this.setState({ loading: true });
+  
+      // Parse the query string
+      let qsAsObject = queryString.parse(this.props.location.search);
+  
+      let results = await Api.searchItems(qsAsObject);
+      console.log("RESULT DATA")
+      console.log(results.data);
+      this.setState({
+        items: results.data,
+        loading: false,
+        totalItemsCount: results.totalLength
+      });
+    }
+  */
   componentDidMount() {
     //this.fetchData();
     this.fetchProducts();
@@ -76,17 +78,17 @@ class ProductList extends Component {
 
     let currentQS = queryString.parse(this.props.location.search);
     let oldQS = queryString.parse(prevProps.location.search);
-    
+
     let areSameObjects = (a, b) => {
       if (Object.keys(a).length !== Object.keys(b).length) return false;
       for (let key in a) {
-              if (a[key] !== b[key]) return false;
+        if (a[key] !== b[key]) return false;
       }
       return true;
     }
 
     // We will refetch products only when query string changes.
-    if (!areSameObjects(currentQS,oldQS )) {
+    if (!areSameObjects(currentQS, oldQS)) {
       //this.fetchData();
       this.fetchProducts();
     }
@@ -111,8 +113,18 @@ class ProductList extends Component {
 
         <div style={{ flex: 1 }}>
           {/*Items in the product list.*/}
-          {this.state.items.map(item => {
-            return <Item key={item._id} item={item} />;
+          {
+          console.log('categoryId @ ProductList BY the LINK'),
+          console.log(parsedQS.category),
+          this.state.items.map(item => {
+            console.log('product category of every item')
+            console.log(item.prodCategory.categoryId)
+            if (item.prodCategory.categoryId == parsedQS.category) {
+              return <Item key={item._id} item={item} />;
+            } 
+            if (parsedQS.category == undefined ) {
+              return <Item key={item._id} item={item} />;
+            }
           })}
         </div>
 
