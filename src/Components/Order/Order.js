@@ -26,6 +26,7 @@ class ConnectedOrder extends Component {
       city: '',
       zip: '',
       phoneNumber: '',
+      delivery: '',
       paymentMethod: ''
     }
   }
@@ -62,9 +63,17 @@ class ConnectedOrder extends Component {
             <TextField
               style={{ width: 200, marginLeft: 50 }}
               value={this.state.address}
-              placeholder="Shipping Address"
+              placeholder="Shipping address"
               onChange={e => {
                 this.setState({ address: e.target.value });
+              }}
+            />
+            <TextField
+              style={{ width: 200, marginLeft: 50 }}
+              value={this.state.address}
+              placeholder="Delivery method"
+              onChange={e => {
+                this.setState({ delivery: e.target.value });
               }}
             />
             <TextField
@@ -138,7 +147,7 @@ class ConnectedOrder extends Component {
         <Button
           color="primary"
           variant="outlined"
-          disabled={(this.state.address == '' || this.state.city == '' || this.state.zip == '' || this.state.phoneNumber == '' || this.state.paymentMethod == '') }
+          disabled={(this.state.delivery == '' || this.state.address == '' || this.state.city == '' || this.state.zip == '' || this.state.phoneNumber == '' || this.state.paymentMethod == '') }
           onClick={() => {
             console.log("purchased");
             this.props.dispatch(showAlertDialog(true));
@@ -147,6 +156,7 @@ class ConnectedOrder extends Component {
               city: '',
               zip: '',
               phoneNumber: '',
+              delivery: '',
               paymentMethod: ''
             })
           }}
