@@ -68,6 +68,7 @@ class ConnectedItem extends Component {
           </Button>
           <Tooltip title="Add to cart">
             <IconButton
+              style={{display: 'none'}}
               size="small"
               onClick={e => {
                 e.stopPropagation();
