@@ -49,7 +49,7 @@ const rootReducer = (state = initialState, action) => {
     case CONSTANTS.DELETE_CART_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter(x => x.id !== action.payload)
+        cartItems: state.cartItems.filter(x => x.prod_id !== action.payload)
       };
     //Delete cart item -- (04)
     case CONSTANTS.TOGGLE_MENU:
@@ -90,6 +90,8 @@ const rootReducer = (state = initialState, action) => {
     //Remove error occured on API requst to create category -- (09)
     case CONSTANTS.REMOVE_CREATE_CATEGORY_ERROR:
       return { ...state, createCategoryError: null};
+    case CONSTANTS.REMOVE_CHECKEDOUT_ITEMS:
+      return { ...state, checkedOutItems: []}
     default:
       return state;
   }

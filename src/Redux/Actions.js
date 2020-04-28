@@ -40,3 +40,6 @@ export const setCreateCategoryError = (error) => ({
 export const removeCreateCategoryError = () => ({
   type: CONSTANTS.REMOVE_CREATE_CATEGORY_ERROR
 });
+export const removeCheckoutItems = () => ({
+  type: CONSTANTS.REMOVE_CHECKEDOUT_ITEMS
+});
