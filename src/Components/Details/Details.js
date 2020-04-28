@@ -305,7 +305,7 @@ class ConnectedDetails extends Component {
               <TextField
                 type="number"
                 value={this.state.quantity}
-                style={{ marginTop: 20, marginBottom: 10, width: 70 }}
+                style={{ marginTop: 20, marginBottom: 10, width: 70, marginRight: 20 }}
                 label="Quantity"
                 inputProps={{ min: 1, max: 10, step: 1 }}
                 onChange={e => {
@@ -314,7 +314,7 @@ class ConnectedDetails extends Component {
               />
 
               <Button
-                style={{ width: 170, marginTop: 5 }}
+                style={{ width: 170, marginTop: 20, marginBottom: 10, marginRight: 5 }}
                 color="primary"
                 variant="outlined"
                 onClick={() => {
@@ -330,7 +330,7 @@ class ConnectedDetails extends Component {
               </Button>
 
               <Button
-                style={{ width: 170, marginTop: 5 }}
+                style={{ width: 170, marginTop: 20, marginBottom: 10 }}
                 color="primary"
                 variant="outlined"
                 onClick={() => {
