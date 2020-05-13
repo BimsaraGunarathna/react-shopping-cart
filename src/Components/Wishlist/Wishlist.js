@@ -115,7 +115,7 @@ class ConnectedWishlist extends Component {
           Total price: {totalPrice} $
         </div>
             */}
-{/*
+        {/*
 <Button
           color="primary"
           variant="outlined"
@@ -128,7 +128,7 @@ class ConnectedWishlist extends Component {
           Purchase
         </Button>
 */}
-        
+
 
         {/*
         
