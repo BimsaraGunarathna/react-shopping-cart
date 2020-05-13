@@ -57,7 +57,7 @@ class ConnectedItem extends Component {
         >
           <Button
             size="small"
-            style={{ marginRight: 60 }}
+            style={{ marginRight: 60, display: 'none'}}
             onClick={() => {
               console.log("This is ID of the Item"+ this.props.item._id)
               this.props.history.push("/details/" + this.props.item._id);
