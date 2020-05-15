@@ -31,6 +31,7 @@ class ConnectedMenu extends Component {
     super(props);
 
     this.state = {
+      isLoading: true,
       // initially item with id 1 is expanded
       expandedMenuItems: {
         1: true

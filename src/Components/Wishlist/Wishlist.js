@@ -7,7 +7,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { setCheckedOutItems } from "../../Redux/Actions";
+import { addItemInCart } from "../../Redux/Actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 //axios
@@ -31,6 +31,21 @@ class ConnectedWishlist extends Component {
       isLoading: true
     };
     this.getWishlistItems();
+  }
+
+  addWishlistToCart() {
+    console.log('addWishlistToCart is initiated.')
+    console.log(this.state.items)
+    this.state.items.map((item) => {
+      console.log(item)
+      this.props.dispatch(
+        addItemInCart({
+          ...item,
+          quantity: 1
+        })
+      )
+    }
+    )
   }
 
   //get the wishlsit items 
@@ -93,14 +108,38 @@ class ConnectedWishlist extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.items.map((item, index) => {
-              return (
-                <TableRow key={item._id}>
-                  <TableCell>{item.prodName}</TableCell>
-                  <TableCell>{item.prodPrice}</TableCell>
-                </TableRow>
-              );
-            })}
+            {
+              this.state.items.map((item, index) => {
+                return (
+                  <TableRow key={item._id}>
+                    <TableCell>{item.prodName}</TableCell>
+                    <TableCell>{item.prodPrice}</TableCell>
+                    <TableCell>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        onClick={
+                          () => {
+                            var cartItem = item
+                            //console.log('Item at the button')
+                            //console.log(cartItem)
+                            this.props.dispatch(
+                              addItemInCart({
+                                ...cartItem,
+                                quantity: this.state.quantity
+                              })
+                            );
+                            cartItem = null
+                          }
+                        }
+                        style={{ margin: 3, marginTop: 20 }}
+                      >
+                        Purchase
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
         {
@@ -117,19 +156,22 @@ class ConnectedWishlist extends Component {
           </div>
               */
         }
-        {/*
-<Button
+
+        <Button
           color="primary"
           variant="outlined"
           //disabled={totalPrice === 0}
-          onClick={() => {
-            console.log("purchased");
-          }}
+          onClick={
+            () => {
+              this.addWishlistToCart()
+            }
+
+          }
           style={{ margin: 5, marginTop: 30 }}
         >
           Purchase
         </Button>
-*/}
+
 
 
         {/*

@@ -32,6 +32,9 @@ const rootReducer = (state = initialState, action) => {
         return { ...state, cartItems: cloneCartItems };
       }
       */
+      console.log('At the cart item reducer.')
+      console.log(action.payload.prodName)
+      console.log(action.payload)
       let index = state.cartItems.findIndex(x => x.prod_id === action.payload.prod_id);
       if (index !== -1) {
         let cloneCartItems = [...state.cartItems];

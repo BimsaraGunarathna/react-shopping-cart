@@ -10,10 +10,15 @@ import TableRow from "@material-ui/core/TableRow";
 import { setCheckedOutItems } from "../../Redux/Actions";
 import TextField from "@material-ui/core/TextField";
 import { showAlertDialog} from "../../Redux/Actions";
+//axios
+import axios from 'axios';
 
+
+//Get the state from redux store.
 const mapStateToProps = state => {
   return {
-    checkedOutItems: state.checkedOutItems
+      checkedOutItems: state.cartItems,
+      loggedInUser: state.loggedInUser
   };
 };
 
@@ -29,6 +34,54 @@ class ConnectedOrder extends Component {
       delivery: '',
       paymentMethod: ''
     }
+    
+  }
+
+  reOrderCartItems() {
+    console.log('At the Oder.js')
+    console.log(this.props.checkedOutItems)
+    this.props.checkedOutItems.map((item) => {
+      delete item.prodComments
+      delete item.prodDescription
+      delete item.prodImage 
+      delete item.prodDiscount
+      delete item.averageRating
+      delete item.prodName 
+      delete item.prodPrice
+      delete item.prodRating
+      delete item.prodName 
+    })
+    console.log('Ordered List')
+    console.log(this.props.checkedOutItems)
+  }
+
+  makeTheOrder() {
+    console.log('At the request')
+    console.log(this.props.checkedOutItems)
+    axios.post(
+      'https://giga-fashion.herokuapp.com/user/placeorder',
+      {
+          user_Id: this.props.loggedInUser.id,
+	        products: this.props.checkedOutItems,
+	        paymentMethod: this.state.paymentMethod,
+	        paymentRefID: "1213214",
+	        deliveryMethod: this.state.delivery
+      },
+      {
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + this.props.loggedInUser.accessToken
+          }
+      }
+  )
+      .then((response) => {
+          console.log('SUCCESS: order placed');
+          console.log(response.data);
+          //window.location.reload(false);
+      }, (err) => {
+          console.log('ERROR: placing order failed');
+          console.log(err);
+      });
   }
   render() {
     let totalPrice = this.props.checkedOutItems.reduce((accumulator, item) => {
@@ -70,7 +123,7 @@ class ConnectedOrder extends Component {
             />
             <TextField
               style={{ width: 200, marginLeft: 50 }}
-              value={this.state.address}
+              value={this.state.delivery}
               placeholder="Delivery method"
               onChange={e => {
                 this.setState({ delivery: e.target.value });
@@ -149,8 +202,9 @@ class ConnectedOrder extends Component {
           variant="outlined"
           disabled={(this.state.delivery == '' || this.state.address == '' || this.state.city == '' || this.state.zip == '' || this.state.phoneNumber == '' || this.state.paymentMethod == '') }
           onClick={() => {
+            this.reOrderCartItems();
             console.log("purchased");
-            this.props.dispatch(showAlertDialog(true));
+            //this.props.dispatch(showAlertDialog(true));
             this.setState({
               address: '',
               city: '',
@@ -159,6 +213,8 @@ class ConnectedOrder extends Component {
               delivery: '',
               paymentMethod: ''
             })
+            
+            this.makeTheOrder();
           }}
           style={{ margin: 5, marginTop: 30 }}
         >
@@ -169,7 +225,7 @@ class ConnectedOrder extends Component {
           variant="outlined"
           //disabled={totalPrice === 0}
           onClick={() => {
-            //this.props.dispatch(setCheckedOutItems([]));
+            this.props.dispatch(setCheckedOutItems([]));
             this.props.history.push("/");
           }}
           style={{ margin: 5, marginTop: 30 }}

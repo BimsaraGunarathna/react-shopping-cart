@@ -35,7 +35,7 @@ class ConnectedProductCategoryForm extends Component {
         console.log('Data of the request @ API')
         console.log('(1) ' + categoryName + ' (2) ' + 'Bearer ' + accessToken)
         axios.post(
-            'https://giga-fashion.herokuapp.com/admin/Fcreateproductcategory',
+            'https://giga-fashion.herokuapp.com/admin/createproductcategory',
             {
                 categoryName: categoryName
             },
