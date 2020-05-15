@@ -157,22 +157,6 @@ class ConnectedWishlist extends Component {
               */
         }
 
-        <Button
-          color="primary"
-          variant="outlined"
-          //disabled={totalPrice === 0}
-          onClick={
-            () => {
-              this.addWishlistToCart()
-            }
-
-          }
-          style={{ margin: 5, marginTop: 30 }}
-        >
-          Purchase
-        </Button>
-
-
 
         {/*
         
