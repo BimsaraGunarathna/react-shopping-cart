@@ -28,9 +28,11 @@ class ConnectedCartDialog extends Component {
       <div>
         <Dialog
           open={this.props.open}
-          onClose={() => {
-            this.props.dispatch(showCartDlg(false));
-          }}
+          onClose={
+            () => {
+              this.props.dispatch(showCartDlg(false));
+            }
+          }
         >
           <AppBar position="static" style={{ backgroundColor: "#3863aa" }}>
             <Toolbar>
@@ -73,7 +75,7 @@ class ConnectedCartDialog extends Component {
               }}
             >
               {" "}
-              Total Price: Rs{totalPrice} 
+              Total Price: Rs{totalPrice}
             </div>
             <Button
               variant="outlined"

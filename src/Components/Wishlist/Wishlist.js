@@ -156,8 +156,7 @@ class ConnectedWishlist extends Component {
           </div>
               */
         }
-
-
+        
         {/*
         
         <Button

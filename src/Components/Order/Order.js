@@ -46,6 +46,7 @@ class ConnectedOrder extends Component {
       delete item.prodImage 
       delete item.prodDiscount
       delete item.averageRating
+      delete item.prodCategory
       delete item.prodName 
       delete item.prodPrice
       delete item.prodRating
