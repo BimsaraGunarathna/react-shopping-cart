@@ -7,6 +7,8 @@ import axios from 'axios';
 //redux
 import { connect } from "react-redux";
 
+const fileUpload = require('fuctbase64');
+
 //Get the state from redux store.
 const mapStateToProps = state => {
     return {
@@ -23,22 +25,24 @@ class ConnectedAddProductForm extends Component {
             prodDescription: '',
             prodPrice: '',
             prodCategory: '',
+            imgUpload: '',
         }
         console.log("This is a new section.");
         console.log(this.props.loggedInUser.roles);
     }
 
     //create a new Store Manager
-    createNewProduct(prodName, prodDescription, prodPrice, prodCategory, accessToken) {
+    createNewProduct(prodName, prodDescription, prodPrice, prodCategory, accessToken, prodImage) {
         console.log('Data of the request @ API')
-        console.log('(1) ' + prodName + ' (2) ' + prodDescription + ' (3) ' + prodPrice + ' (4) ' + prodCategory + ' (5) ' + 'Bearer ' + accessToken)
+        console.log('(1) ' + prodName + ' (2) ' + prodDescription + ' (3) ' + prodPrice + ' (4) ' + prodCategory + ' (5) ' + 'Bearer ' + accessToken + ' (6) ' + 'prodImage ' + prodImage)
         axios.post(
             'https://giga-fashion.herokuapp.com/manager/addproduct',
             {
                 prodName: prodName,
                 prodDescription: prodDescription,
                 prodPrice: prodPrice,
-                prodCategory: prodCategory
+                prodCategory: prodCategory,
+                prodImage: prodImage
             },
             {
                 headers: {
@@ -55,6 +59,22 @@ class ConnectedAddProductForm extends Component {
                 console.log('ERROR: create a new product');
                 console.log(err);
             });
+    }
+
+    //convert image to base64
+    getBase64 = (e) => {
+        var file = e.target.files[0]
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+            this.setState({
+                imgUpload: reader.result
+            })
+            console.log(this.state.imgUpload)
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        }
     }
 
     render() {
@@ -113,11 +133,29 @@ class ConnectedAddProductForm extends Component {
                                 this.setState({ prodCategory: e.target.value });
                             }}
                         />
+                        <input 
+                            type="file"
+                            style={{ marginTop: 20, width: 150 }}
+                            onChange={
+                                e => {
+                                    this.setState({
+                                        prodImage: e.target.files
+                                    })
+                                    /*
+                                    console.log('Product Image URL');
+                                    console.log(this.state.prodImage);
+                                    */
+
+                                },
+                                this.getBase64
+                            }
+                        />
                         <Button
                             style={{ marginTop: 20, width: 150 }}
                             variant="outlined"
                             color="primary"
                             onClick={() => {
+                                //this.handleProductImage(this.state.prodImage);
                                 /*
                                 //form validation
                                 if (this.state.firstName.trim().length == 0 || this.state.lastName.trim().length == 0 || this.state.email.trim().length == 0 || this.state.password.trim().length == 0) {
@@ -126,12 +164,12 @@ class ConnectedAddProductForm extends Component {
                                 */
                                 //initiate signup
                                 console.log('At the Add a new product');
-                                console.log(this.state.prodName, this.state.prodDescription, this.state.prodPrice, this.state.prodCategory);
+                                console.log(this.state.prodName, this.state.prodDescription, this.state.prodPrice, this.state.prodCategory, this.state.prodImage);
                                 //this.createNewProduct();
-                                this.createNewProduct(this.state.prodName, this.state.prodDescription, this.state.prodPrice, this.state.prodCategory, this.props.loggedInUser.accessToken)
+                                this.createNewProduct(this.state.prodName, this.state.prodDescription, this.state.prodPrice, this.state.prodCategory, this.props.loggedInUser.accessToken, this.state.imgUpload)
                             }}
                         >
-                            Create Store Manager
+                            Create Product
                         </Button>
                     </div>
                 </div>
